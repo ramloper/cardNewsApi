@@ -1,0 +1,46 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+      force-response: true
+  port: 8080
+  error:
+    include-stacktrace: on_param
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+      default_batch_fetch_size: 100
+    open-in-view: false
+    cache:
+      type: simple
+  data:
+    redis:
+      port: 6379
+      host: ${REDIS_HOST}
+#      host: host.docker.internal
+      password: ${REDIS_PASSWORD}
+    mongodb:
+      uri: ${MONGO_DB_URI}
+
+logging:
+  level:
+    '[com.urban.reservation]': DEBUG
+    '[org.hibernate.type]': TRACE
+
+jwt:
+  subject: reservation
+  secret: ${JWT_SECRET}
+  key: ${JWT_KEY}
