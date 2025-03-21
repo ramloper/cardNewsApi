@@ -32,8 +32,11 @@ spring:
       host: ${REDIS_HOST}
 #      host: host.docker.internal
       password: ${REDIS_PASSWORD}
-    mongodb:
-      uri: ${MONGO_DB_URI}
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1GB
+      max-request-size: 20GB
 
 logging:
   level:
@@ -44,3 +47,16 @@ jwt:
   subject: reservation
   secret: ${JWT_SECRET}
   key: ${JWT_KEY}
+
+# S3
+cloud:
+  aws:
+    credentials:
+      access-key: ${ACCESS_KEY}  # AWS IAM 사용자의 Access Key
+      secret-key: ${SECRET_KEY}  # AWS IAM 사용자의 Secret Key
+    region:
+      static: ap-northeast-2  # AWS S3 버킷이 위치한 리전 (예: 서울 "ap-northeast-2")
+    stack:
+      auto: false  # CloudFormation 스택 자동 생성 방지
+    s3:
+      bucket: ${BUCKET}  # 사용할 S3 버킷 이름
