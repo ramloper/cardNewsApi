@@ -10,8 +10,6 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "main" ]
-#  pull_request:
-#    branches: [ "main" ]
 permissions:
   contents: read
 jobs:
@@ -81,7 +79,6 @@ jobs:
               -e DB_USERNAME="${{secrets.DB_USERNAME}}" \
               -e DB_PASSWORD="${{secrets.DB_PASSWORD}}" \
               -e REDIS_HOST="${{secrets.REDIS_HOST}}" \
-#              -e REDIS_PASSWORD="${{secrets.REDIS_PASSWORD}}" \
               -e JWT_SECRET="${{secrets.JWT_SECRET}}" \
               -e JWT_KEY="${{secrets.JWT_KEY}}" \
               -e MONGO_DB_URI="${{secrets.MONGO_DB_URI}}" \
