@@ -61,7 +61,6 @@ jobs:
 
       - name: Deploy to repo
         uses: appleboy/ssh-action@v1.0.3
-        id: deploy-prod
         if: contains(github.ref, 'main')
         with:
           host: ${{ secrets.EC2_HOST }}
