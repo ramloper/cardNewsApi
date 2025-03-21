@@ -61,6 +61,7 @@ jobs:
 
       - name: Deploy to repo
         uses: appleboy/ssh-action@v1.0.3
+        id: deploy-prod
         if: contains(github.ref, 'main')
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -73,7 +74,7 @@ jobs:
             sudo docker ps --filter 'status=exited' -a -q | xargs -r sudo docker rm -f
             sudo docker pull "${{ secrets.DOCKER_ID }}"/artgram:latest
             sudo docker images
-            docker run -d --net artgram-network\
+            docker run -d --net artgram \
               --name artgram \
               -p 8080:8080 \
               -e DB_URL="${{secrets.DB_URL}}" \
