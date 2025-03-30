@@ -1,5 +1,5 @@
 # 1. Base image (JDK 17)
-FROM openjdk:21-jdk-alpine
+FROM openjdk:21-slim
 
 ENV TZ=Asia/Seoul
 
