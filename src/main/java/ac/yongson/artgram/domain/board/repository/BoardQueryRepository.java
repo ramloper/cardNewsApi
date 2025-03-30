@@ -46,26 +46,46 @@ public class BoardQueryRepository {
 
         public List<BoardResponseDTO.Post> getMainMyPostList(Long memberId) {
                 return jpaQueryFactory
-                                .from(board)
-                                .leftJoin(board.member)
-                                .leftJoin(board.member.image)
-                                .leftJoin(board.boardImages, boardLinkImage)
-                                .where(board.memberId.eq(memberId))
-                                .orderBy(board.boardId.desc())
-                                .transform(
-                                                groupBy(board.boardId).list(
-                                                                Projections.fields(BoardResponseDTO.Post.class,
-                                                                                board.boardId,
-                                                                                board.title,
-                                                                                board.content,
-                                                                                board.member.memberName,
-                                                                                board.member.image.imageUrl
-                                                                                                .as("profileImageUrl"),
-                                                                                board.likeCount,
-                                                                                board.comments.size()
-                                                                                                .as("commentCount"),
-                                                                                GroupBy.list(boardLinkImage.image.imageId)
-                                                                                                .as("imageIds"))));
+                        .from(board)
+                        .leftJoin(board.member)
+                        .leftJoin(board.member.image)
+                        .leftJoin(board.boardImages, boardLinkImage)
+                        .where(board.memberId.eq(memberId))
+                        .orderBy(board.boardId.desc())
+                        .transform(
+                                groupBy(board.boardId).list(
+                                        Projections.fields(BoardResponseDTO.Post.class,
+                                                board.boardId,
+                                                board.title,
+                                                board.content,
+                                                board.member.memberName,
+                                                board.member.image.imageUrl.as("profileImageUrl"),
+                                                board.likeCount,
+                                                board.comments.size().as("commentCount"),
+                                                GroupBy.list(boardLinkImage.image.imageId)
+                                                                .as("imageIds"))));
+        }
+
+        public List<BoardResponseDTO.Post> getBoardLikeList(List<Long> boardIds) {
+                return jpaQueryFactory
+                        .from(board)
+                        .leftJoin(board.member)
+                        .leftJoin(board.member.image)
+                        .leftJoin(board.boardImages, boardLinkImage)
+                        .where(board.boardId.in(boardIds))
+                        .orderBy(board.boardId.desc())
+                        .transform(
+                                groupBy(board.boardId).list(
+                                        Projections.fields(BoardResponseDTO.Post.class,
+                                                board.boardId,
+                                                board.title,
+                                                board.content,
+                                                board.member.memberName,
+                                                board.member.image.imageUrl.as("profileImageUrl"),
+                                                board.likeCount,
+                                                board.comments.size().as("commentCount"),
+                                                GroupBy.list(boardLinkImage.image.imageId)
+                                                        .as("imageIds"))));
         }
 
         public BoardResponseDTO.BoardInfo getBoard(Long boardId) {

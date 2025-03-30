@@ -1,6 +1,7 @@
 package ac.yongson.artgram.domain.board.entity;
 
 import ac.yongson.artgram.domain.member.entity.Member;
+import ac.yongson.artgram.global.timestamp.Timestamped;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
-public class BoardLike {
+public class BoardLike extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_like_id")

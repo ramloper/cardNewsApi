@@ -61,6 +61,11 @@ public class BoardServiceImpl implements BoardService {
         return boardQueryRepository.getMainMyPostList(memberId);
     }
     @Override
+    public List<BoardResponseDTO.Post> getBoardLikeList(Long memberId){
+        List<Long> boardIds = boardLikeRepository.findAllByMemberId(memberId);
+        return boardQueryRepository.getBoardLikeList(boardIds);
+    }
+    @Override
     public BoardResponseDTO.BoardInfo getBoard(Long memberId, Long boardId){
         BoardResponseDTO.BoardInfo boardInfo= boardQueryRepository.getBoard(boardId);
         List<BoardLinkImage> boardLinkImages = boardLinkImageRepository.findByBoardId(boardId);

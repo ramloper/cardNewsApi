@@ -59,4 +59,11 @@ public class BoardController {
         return ResponseEntity.ok().body(new ResponseDTO<>("좋아요 취소 성공"));
     }
 
+    @GetMapping("auth/board/like/list")
+    public ResponseEntity<?> getBoardLikeList(HttpServletRequest request) {
+        Long memberId = authService.getLoginMemberId(request);
+
+        return ResponseEntity.ok().body(new ResponseDTO<>(boardService.getBoardLikeList(memberId)));
+    }
+
 }

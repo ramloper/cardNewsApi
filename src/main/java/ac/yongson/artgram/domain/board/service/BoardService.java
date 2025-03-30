@@ -11,6 +11,7 @@ public interface BoardService {
     void saveBoard(BoardRequestDTO.SaveBoard saveBoard, List<MultipartFile> files, Long memberId);
     List<BoardResponseDTO.Post> getBoards(Long memberId);
     List<BoardResponseDTO.Post> getMyBoards(Long memberId);
+    List<BoardResponseDTO.Post> getBoardLikeList(Long memberId);
     BoardResponseDTO.BoardInfo getBoard(Long memberId,Long boardId);
     void saveBoardLike(Long memberId, Long boardId);
     void deleteBoardLike(Long memberId, Long boardId);
