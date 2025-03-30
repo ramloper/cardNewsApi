@@ -7,6 +7,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class MemberQueryRepository {
@@ -22,5 +24,16 @@ public class MemberQueryRepository {
                 .from(member)
                 .where(member.memberId.eq(memberId))
                 .fetchFirst();
+    }
+
+    public List<MemberResponseDTO.WaitingToMember> getWaitingToMembers() {
+        return jpaQueryFactory
+                .select(Projections.fields(MemberResponseDTO.WaitingToMember.class,
+                        member.memberId,
+                        member.studentId,
+                        member.memberName))
+                .from(member)
+                .where(member.isSubscription.eq(false))
+                .fetch();
     }
 }

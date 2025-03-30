@@ -12,6 +12,7 @@ import ac.yongson.artgram.global.auth.JwtTokenProvider;
 import ac.yongson.artgram.global.exception.Exception400;
 import ac.yongson.artgram.global.exception.Exception401;
 import ac.yongson.artgram.global.exception.Exception404;
+import ac.yongson.artgram.global.exception.Exception500;
 import ac.yongson.artgram.global.service.RedisService;
 import ac.yongson.artgram.global.service.S3ImageService;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -108,6 +110,22 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberResponseDTO.MemberSimpleInfo getMemberSimpleInfo(Long memberId){
         return memberQueryRepository.getMemberSimpleInfo(memberId);
+    }
+
+    @Override
+    public List<MemberResponseDTO.WaitingToMember> getWaitingToJoin(){
+        return memberQueryRepository.getWaitingToMembers();
+    }
+    @Override
+    @Transactional
+    public void patchWaitingToJoin(Long memberId){
+        Member memberPS = memberRepository.findById(memberId).orElseThrow(() -> new Exception400("member", "해당 학생이 없습니다."));
+        try{
+            memberPS.approved();
+        }catch (Exception e){
+            throw new Exception500("member", "가입 승인 실패");
+        }
+
     }
     private void isMemberStudentIdCheck(String studentId) {
         Optional<Member> member = memberRepository.findByStudentId(studentId);

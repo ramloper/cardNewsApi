@@ -10,4 +10,11 @@ public class MemberResponseDTO {
         private String memberName;
         private String profileImageUrl;
     }
+
+    @Getter
+    public static class WaitingToMember{
+        private Long memberId;
+        private String studentId;
+        private String memberName;
+    }
 }

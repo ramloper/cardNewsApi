@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class NoticeController {
     private final NoticeService noticeService;
 
-    @GetMapping("auth/notice/list")
+    @GetMapping("notice/list")
     public ResponseEntity<?> getNoticeList() {
         return ResponseEntity.ok().body(new ResponseDTO<>(noticeService.getNotices()));
     }
 
-    @PostMapping("auth/notice")
+    @PostMapping("admin/notice")
     public ResponseEntity<?> postNotice(@RequestBody NoticeRequestDTO.SaveNotice saveNotice) {
         noticeService.saveNotice(saveNotice);
         return ResponseEntity.ok().body(new ResponseDTO<>("공지사항 등록 성공"));

@@ -46,4 +46,8 @@ public class Member extends Timestamped {
         private final String memberRoleName;
 
     }
+
+    public void approved(){
+        this.isSubscription = true;
+    }
 }

@@ -28,7 +28,7 @@ public class BoardController {
         return ResponseEntity.ok().body(new ResponseDTO<>("게시판 등록 성공"));
     }
 
-    @GetMapping("auth/board/list")
+    @GetMapping("board/list")
     public ResponseEntity<?> getBoardList(HttpServletRequest request) {
         Long memberId = authService.getLoginMemberId(request);
         return ResponseEntity.ok().body(new ResponseDTO<>(boardService.getBoards(memberId)));

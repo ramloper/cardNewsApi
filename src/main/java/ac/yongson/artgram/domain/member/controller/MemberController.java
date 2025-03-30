@@ -48,4 +48,15 @@ public class MemberController {
         Long memberId = authService.getLoginMemberId(request);
         return ResponseEntity.ok().body(new ResponseDTO<>(memberService.getMemberSimpleInfo(memberId)));
     }
+
+    @GetMapping("admin/waiting/join")
+    public ResponseEntity<?> getWaitingToJoin() {
+        return ResponseEntity.ok().body(new ResponseDTO<>(memberService.getWaitingToJoin()));
+    }
+
+    @PatchMapping("admin/waiting/join/{memberId}")
+    public ResponseEntity<?> patchWaitingToJoin(@PathVariable Long memberId) {
+        memberService.patchWaitingToJoin(memberId);
+        return ResponseEntity.ok().body(new ResponseDTO<>("승인 성공"));
+    }
 }
