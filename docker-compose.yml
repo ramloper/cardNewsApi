@@ -1,0 +1,10 @@
+version : '3'
+services:
+  webapp:
+    image: artgram
+    restart: always
+    container_name: artgram_spring_boot
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
