@@ -26,7 +26,7 @@ public class MemberController {
                 .headers(memberService.setRefreshToken(login,tokenDTO,response))
                 .body(new ResponseDTO<>(tokenDTO.getAccessToken()));
     }
-    @PutMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<?> logout(@CookieValue(value = "refreshToken",required = false) String refreshToken, HttpServletRequest request) {
         if(refreshToken == null){
             refreshToken = request.getHeader("refreshToken");
