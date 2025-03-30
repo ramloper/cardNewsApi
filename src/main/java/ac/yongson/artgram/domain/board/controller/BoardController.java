@@ -40,7 +40,7 @@ public class BoardController {
         return ResponseEntity.ok().body(new ResponseDTO<>(boardService.getMyBoards(memberId)));
     }
 
-    @GetMapping("auth/board/{boardId}")
+    @GetMapping("board/{boardId}")
     public ResponseEntity<?> getBoard(@PathVariable("boardId")Long boardId, HttpServletRequest request) {
         Long memberId = authService.getLoginMemberId(request);
         return ResponseEntity.ok().body(new ResponseDTO<>(boardService.getBoard(memberId, boardId)));

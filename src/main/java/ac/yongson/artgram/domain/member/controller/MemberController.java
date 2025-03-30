@@ -19,14 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberController {
     private final MemberService memberService;
     private final AuthService authService;
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody MemberRequestDTO.Login login, HttpServletResponse response) {
         TokenDTO tokenDTO = memberService.login(login);
         return ResponseEntity.ok()
                 .headers(memberService.setRefreshToken(login,tokenDTO,response))
                 .body(new ResponseDTO<>(tokenDTO.getAccessToken()));
     }
-    @PostMapping("/logout")
+    @PostMapping("auth/logout")
     public ResponseEntity<?> logout(@CookieValue(value = "refreshToken",required = false) String refreshToken, HttpServletRequest request) {
         if(refreshToken == null){
             refreshToken = request.getHeader("refreshToken");
@@ -35,7 +35,7 @@ public class MemberController {
                 .headers(memberService.logout(refreshToken))
                 .body(new ResponseDTO<>("로그아웃 성공"));
     }
-    @PostMapping("/refresh")
+    @PostMapping("refresh")
     public ResponseEntity<?> recreationAccessToken(@CookieValue(value = "refreshToken", required = false) String refreshToken, HttpServletRequest request) {
         if(refreshToken == null){
             refreshToken = request.getHeader("refreshToken");

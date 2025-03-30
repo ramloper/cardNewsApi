@@ -78,7 +78,7 @@ public class MemberServiceImpl implements MemberService{
         ResponseCookie responseCookie = ResponseCookie.from("refreshToken", "")
                 .path("/")
                 .sameSite("None")
-                .maxAge(1000 * 60 * 60 * 24 * 14)
+                .maxAge(0)
                 .secure(true) // https로 바꾸면 true 변경
                 .httpOnly(true) // 나중에 true로 변경
                 .build();

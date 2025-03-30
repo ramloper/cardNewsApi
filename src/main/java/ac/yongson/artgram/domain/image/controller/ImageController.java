@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageService imageService;
-    @GetMapping("auth/image/list")
+    @GetMapping("image/list")
     public ResponseEntity<?> saveBoard(@RequestParam(name = "imageIds")List<Long> imageIds, HttpServletRequest request) {
 
         return ResponseEntity.ok().body(new ResponseDTO<>(imageService.getImages(imageIds)));

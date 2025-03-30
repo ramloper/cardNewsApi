@@ -23,4 +23,9 @@ public class NoticeServiceImpl implements NoticeService {
     public void saveNotice(NoticeRequestDTO.SaveNotice saveNotice){
         noticeRepository.save(saveNotice.toEntity());
     }
+
+    @Override
+    public void deleteNotice(Long noticeId){
+        noticeRepository.deleteById(noticeId);
+    }
 }

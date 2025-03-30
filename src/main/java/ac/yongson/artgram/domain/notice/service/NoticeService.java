@@ -8,4 +8,5 @@ import java.util.List;
 public interface NoticeService {
     List<Notice> getNotices();
     void saveNotice(NoticeRequestDTO.SaveNotice saveNotice);
+    void deleteNotice(Long noticeId);
 }

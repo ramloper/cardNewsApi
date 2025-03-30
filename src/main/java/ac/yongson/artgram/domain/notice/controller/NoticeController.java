@@ -24,4 +24,10 @@ public class NoticeController {
         noticeService.saveNotice(saveNotice);
         return ResponseEntity.ok().body(new ResponseDTO<>("공지사항 등록 성공"));
     }
+
+    @DeleteMapping("admin/notice/{noticeId}")
+    public ResponseEntity<?> deleteNotice(@PathVariable Long noticeId) {
+        noticeService.deleteNotice(noticeId);
+        return ResponseEntity.ok().body(new ResponseDTO<>("공지사항 등록 성공"));
+    }
 }
