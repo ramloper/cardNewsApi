@@ -41,6 +41,9 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     public TokenDTO login(MemberRequestDTO.Login loginDTO) {
         Member memberPS = getMemberByStudentId(loginDTO.getStudentId());
+        if(!memberPS.getMemberName().equals(loginDTO.getMemberName())) {
+            throw new Exception400("member", "학생 정보가 일치하지 않습니다.");
+        }
         passwordCheck(loginDTO.getPassword(),memberPS.getPassword());
         isSubscription(memberPS);
         final String accessToken = jwtTokenProvider.createAccessToken(memberPS);
