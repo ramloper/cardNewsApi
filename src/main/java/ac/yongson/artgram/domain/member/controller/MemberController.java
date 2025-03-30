@@ -26,6 +26,15 @@ public class MemberController {
                 .headers(memberService.setRefreshToken(login,tokenDTO,response))
                 .body(new ResponseDTO<>(tokenDTO.getAccessToken()));
     }
+    @PutMapping("/logout")
+    public ResponseEntity<?> logout(@CookieValue(value = "refreshToken",required = false) String refreshToken, HttpServletRequest request) {
+        if(refreshToken == null){
+            refreshToken = request.getHeader("refreshToken");
+        }
+        return ResponseEntity.ok()
+                .headers(memberService.logout(refreshToken))
+                .body(new ResponseDTO<>("로그아웃 성공"));
+    }
     @PostMapping("/refresh")
     public ResponseEntity<?> recreationAccessToken(@CookieValue(value = "refreshToken", required = false) String refreshToken, HttpServletRequest request) {
         if(refreshToken == null){
