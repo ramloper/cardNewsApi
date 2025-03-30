@@ -87,7 +87,7 @@ jobs:
               -v /etc/localtime:/etc/localtime:ro \
               -e ACCESS_KEY="${{secrets.AWS_ACCESS_KEY_ID}}" \
               -e SECRET_KEY="${{secrets.AWS_SECRET_ACCESS_KEY}}" \
-              -e BUCKET="${{secrets.AWS_SECRET_ACCESS_KEY}}" \
+              -e BUCKET="${{secrets.BUCKET}}" \
               -e TZ=Asia/Seoul \
                 kimwooram/artgram:latest
             sudo docker image prune -a -f
